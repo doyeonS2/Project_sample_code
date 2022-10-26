@@ -65,7 +65,7 @@ public class MemberServlet extends HttpServlet {
 			memberInfo.put("pwd", e.getPwd());
 			memberInfo.put("name", e.getName());
 			memberInfo.put("email", e.getEmail());
-			DateFormat dateFormat = new SimpleDateFormat("YYYY/dd/MM HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd HH:mm:ss");
 			String dateToStr = dateFormat.format(e.getJoin());
 			memberInfo.put("join", dateToStr);
 			memberArray.add(memberInfo);
