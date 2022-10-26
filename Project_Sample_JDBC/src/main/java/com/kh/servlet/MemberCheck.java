@@ -33,7 +33,7 @@ public class MemberCheck extends HttpServlet {
 		JSONObject jsonObj = Common.getJsonObj(sb);
 		String getId = (String)jsonObj.get("id");
 		MemberDAO dao = new MemberDAO();
-		boolean isNotReg = dao.regIdCheck(getId); //isNotReg = TRUE 가입안된 경우
+		boolean isNotReg = dao.regIdCheck(getId); // isNotReg = true이면 가입 안된 상태
 	
 		PrintWriter out = response.getWriter();
 		JSONObject resJson = new JSONObject();

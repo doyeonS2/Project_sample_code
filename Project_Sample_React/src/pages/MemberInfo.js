@@ -16,7 +16,7 @@ const MemberInfo = () => {
         margin: 0 auto;
         margin-top: 2rem;
         @media screen and (max-width: 768px) {
-            witdh: 100%;
+            width: 100%;
             padding-left: 1em;
             padding-right:1em;
         }
@@ -28,7 +28,7 @@ const MemberInfo = () => {
         margin: 0 auto;
         font-size: 1.125em;
         @media screen and (max-width: 768px) {
-            witdh: 100%;
+            width: 100%;
         }
         th, td {
             border:1px solid #ccc;
