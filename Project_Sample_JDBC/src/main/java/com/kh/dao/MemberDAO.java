@@ -88,4 +88,22 @@ public class MemberDAO {
 		
 		return list;
 	}
+	
+	public boolean regIdCheck(String id) {
+		boolean isNotReg = false;
+		try {
+			conn = Common.getConnection();
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM T_MEMBER WHERE ID = " + "'" + id + "'";
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) isNotReg = false;
+			else isNotReg = true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		Common.close(rs);
+		Common.close(stmt);
+		Common.close(conn);
+		return isNotReg; // 가입되어 있으면 false, 가입이 안되어 있으면 true
+	}
 }

@@ -26,14 +26,14 @@ const KhApi = {
             name: name,
             mail: mail
         };
-        return await axios.post(KH_DOMAIN + "memberReg", memberObj, HEADER);
+        return await axios.post(KH_DOMAIN + "MemberReg", memberObj, HEADER);
     },
     // 회원 가입 여부 확인
     memberRegCheck: async function(id) {
         const regCheck = {
             id: id,
         }
-        return await axios.post(KH_DOMAIN + "memberCheck", regCheck, HEADER);
+        return await axios.post(KH_DOMAIN + "MemberCheck", regCheck, HEADER);
     }
 
 }
