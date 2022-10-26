@@ -1,4 +1,4 @@
-package com.kh;
+package com.kh.common;
 
 import java.io.BufferedReader;
 import java.sql.Connection;

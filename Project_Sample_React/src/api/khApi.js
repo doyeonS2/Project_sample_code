@@ -1,6 +1,6 @@
 import axios from "axios";
 const HEADER = 'application/json';
-const KH_DOMAIN = "http://localhost:8090/kh_mini_ex/";
+const KH_DOMAIN = "http://localhost:8090/Project_Sample_JDBC/";
 
 const KhApi = {
     // 로그인 기능
@@ -16,7 +16,7 @@ const KhApi = {
         const regCmd = {
             cmd : "MemberInfo"
         }
-        return await axios.post(KH_DOMAIN + "member", regCmd, HEADER);
+        return await axios.post(KH_DOMAIN + "MemberServlet", regCmd, HEADER);
     },
     // 회원 가입
     memberReg: async function(id, pwd, name, mail) {

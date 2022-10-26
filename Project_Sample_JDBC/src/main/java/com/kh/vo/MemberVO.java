@@ -1,4 +1,4 @@
-package com.kh;
+package com.kh.vo;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package com.kh;
+package com.kh.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.kh.common.Common;
+import com.kh.dao.MemberDAO;
 
 
 @WebServlet("/LoginServlet")

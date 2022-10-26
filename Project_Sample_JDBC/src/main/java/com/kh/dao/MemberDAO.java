@@ -1,9 +1,15 @@
-package com.kh;
+package com.kh.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.kh.common.Common;
+import com.kh.vo.MemberVO;
 
 // DB와 연결하는 부분 만들어주기
 // 노션 DATABASE -> JDBC 구현 순서 참고
@@ -48,5 +54,38 @@ public class MemberDAO {
 		}
 		
 		return false;
+	}
+	
+	public List<MemberVO> memberSelect() {
+		List<MemberVO> list = new ArrayList<>();
+		try {
+			conn = Common.getConnection();
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM T_MEMBER"; // 쿼리문 날리기 
+			rs = stmt.executeQuery(sql); // DB에 있는 결과 얻기
+			
+			while(rs.next()) {
+				String id = rs.getString("ID");
+				String pwd = rs.getString("PWD");
+				String name = rs.getString("NAME");
+				String email = rs.getString("EMAIL");
+				Date join = rs.getDate("JOIN");
+				
+				MemberVO vo = new MemberVO(); // 아이디, 패스워드, 이름, 메일, 조인 등.. 값을 저장할 수 있는 객체
+				vo.setId(id);
+				vo.setPwd(pwd);
+				vo.setName(name);
+				vo.setEmail(email);
+				vo.setJoin(join);
+				list.add(vo);
+			}
+			Common.close(rs);
+			Common.close(stmt);
+			Common.close(conn);
+		} catch (Exception e) {
+			e.printStackTrace(); // 호출에 대한 스택을 출력하라(누가 어떻게 호출했는지를 쭉 뿌려달라는 것)
+		}
+		
+		return list;
 	}
 }
