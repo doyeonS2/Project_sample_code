@@ -4,11 +4,27 @@ import nowGo from '../images/short_cut.png'
 import logoWhite from '../images/tier_logo_white.png'
 import imgPhone from '../images/ned_phone.png'
 import qrPay from '../images/qr_button_black.png'
+import Modal from '../util/Modal'
+import { useState } from 'react'
+import KhApi from '../api/khApi'
 
 const GoHome = () => {
 
     const localId = window.localStorage.getItem("userId");
     const localPw = window.localStorage.getItem("userPw");
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const closeModal = () => {
+        setModalOpen(false);
+        const memberReg = await KhApi.memberDelete(localId);
+        console.log(memberReg.data.result);
+        if(memberReg.data.result === "OK") {
+            window.location.replace("/");
+        } else {
+
+        }
+    };
     
     const onClickWallet = async() => {
     }
@@ -21,6 +37,10 @@ const GoHome = () => {
     const onClickMemberReg = () => {
         console.log("회원 가입으로 이동");
         window.location.replace("/Signup");
+    }
+
+    const onClickMemberDelete = () => {
+        setModalOpen(true);
     }
 
     const onClickPeer = () => {
@@ -74,6 +94,7 @@ const GoHome = () => {
                    <p>회원 패스워드 : {localPw}</p>
                 </div>
             </div>
+            {modalOpen && <Modal open={modalOpen} confirm={modalConfirm} close={modalClose}></Modal>}
         </div>
     )
 };

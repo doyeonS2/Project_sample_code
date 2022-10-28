@@ -6,7 +6,7 @@ public class MemberVO {
 	private String id;
 	private String pwd;
 	private String name;
-	private String email;
+	private String email; 
 	private Date join;
 	public String getId() {
 		return id;

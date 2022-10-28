@@ -106,4 +106,39 @@ public class MemberDAO {
 		Common.close(conn);
 		return isNotReg; // 가입되어 있으면 false, 가입이 안되어 있으면 true
 	}
+	public boolean memberRegister(String id, String pwd, String name, String mail) {
+		int result = 0;
+		String sql = "INSERT INTO T_MEMBER(ID, PWD, NAME, EMAIL, JOIN) VALUES(?, ?, ?, ?, SYSDATE)";
+		try {
+			conn = Common.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id); // 첫번째 물음표에 id 들어감
+			pstmt.setString(2, pwd); // 두번째에는 pwd
+			pstmt.setString(3, name);
+			pstmt.setString(4, mail);
+			result = pstmt.executeUpdate();
+			System.out.println("회원 가입 DB 결과 확인 : " + result);
+			
+		} catch (Exception e) { // 예외 처리 구문
+			e.printStackTrace(); // 에러 위치 찾아줌(맨 마지막에 불려진게 맨 위로 올라감 => 에러 부분이 맨 위에 있다는 것)
+		}
+		Common.close(rs);
+		Common.close(pstmt);
+		Common.close(conn);
+		
+		if(result == 1) return true;
+		else return false;
+		
+	}
+	
+	public boolean MemberDelete(String id) {
+		int result = 0;
+		String sql = "DELETE FROM T_MEMBER WHERE ID = ?";
+		
+		try {
+			conn = Common.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt = setString(1, id);
+		}
+	}
 }
