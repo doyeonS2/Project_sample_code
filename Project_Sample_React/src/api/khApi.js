@@ -1,7 +1,7 @@
-
 import axios from "axios";
 const HEADER = 'application/json';
-const KH_DOMAIN = "http://localhost:8090/Project_Sample_JDBC/";
+const KH_DOMAIN = "http://localhost:8100/kh_mini_ex/";
+
 const KhApi = {
     // 로그인 기능
     userLogin: async function(id, pw) {
@@ -34,12 +34,13 @@ const KhApi = {
             id: id,
         }
         return await axios.post(KH_DOMAIN + "MemberCheck", regCheck, HEADER);
-    }
-
+    },
     memberDelete: async function(id) {
-        const
+        const regCheck = {
+            id: id,
+        }
+        return await axios.post(KH_DOMAIN + "MemberDeleteServlet", regCheck, HEADER);
     }
-
 }
 
 export default KhApi;

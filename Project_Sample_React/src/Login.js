@@ -7,6 +7,7 @@ import KhApi from './api/khApi';
 import Modal from './util/Modal.js';
 
 const Login = () => {
+    window.localStorage.setItem("isLogin", "FALSE");
 
     // 키보드 입력
     const [inputId, setInputId] = useState("");
@@ -66,11 +67,12 @@ const Login = () => {
         try {
             // 로그인을 위한 axios 호출
             const res = await KhApi.userLogin(inputId, inputPw);
-            console.log(res.data.result);
+            console.log(res.data);
            
             if(res.data.result === "OK") {
                 window.localStorage.setItem("userId", inputId);
                 window.localStorage.setItem("userPw", inputPw);
+                window.localStorage.setItem("isLogin", "TRUE");
                 window.location.replace("/home");
             } else {
                 setModalOpen(true);

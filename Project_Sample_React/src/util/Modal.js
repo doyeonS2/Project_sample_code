@@ -3,7 +3,7 @@ import '../App';
 import './Modal.css';
 
 const Modal = (props) => {
-    const { open, confirm, close, header } = props;
+    const { open, confirm, close, type, header } = props;
     return (
         <div className={open ? 'openModal modal' : 'modal'}>
             {open && 
@@ -16,7 +16,8 @@ const Modal = (props) => {
                     </header>
                     <main>{props.children}</main>
                     <footer>
-                        <button className='close' onClick={close}>close</button>
+                        {type && <button onClick={confirm}>확인</button>}
+                        <button onClick={close}>취소</button>
                     </footer>
                 </section>
             }

@@ -80,12 +80,11 @@ const SignupS1 = () =>{
 
     const onClickLogin = async() => {
         console.log("Click 회원가입");
-        
-        // 가입 여부 우선 확인(중복확인 하는 부분)
+        // 가입 여부 우선 확인
         const memberCheck = await KhApi.memberRegCheck(inputId);
         console.log("가입 가능 여부 확인 : ", memberCheck.data);
-
         // 가입 여부 확인 후 가입 절차 진행
+
         if (memberCheck.data.result === "OK") {
             console.log("가입된 아이디가 없습니다. 다음 단계 진행 합니다.");
             const memberReg = await KhApi.memberReg(inputId, inputPw, inputName, inputEmail);

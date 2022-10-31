@@ -8,6 +8,8 @@ import '../App.css'
 const MemberInfo = () => {
     const [memberInfo, setMemberInfo] = useState('');
     const [loading, setLoading] = useState(false);
+    const isLogin = window.localStorage.getItem("isLogin");
+    if(isLogin === "FALSE") window.location.replace("/");
 
     const MemberListBlock = styled.div`
         box-sizing: border-box;
@@ -16,7 +18,7 @@ const MemberInfo = () => {
         margin: 0 auto;
         margin-top: 2rem;
         @media screen and (max-width: 768px) {
-            width: 100%;
+            witdh: 100%;
             padding-left: 1em;
             padding-right:1em;
         }
@@ -28,7 +30,7 @@ const MemberInfo = () => {
         margin: 0 auto;
         font-size: 1.125em;
         @media screen and (max-width: 768px) {
-            width: 100%;
+            witdh: 100%;
         }
         th, td {
             border:1px solid #ccc;
