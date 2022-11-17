@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import alarmGo from '../images/bell.png'
 import receiptGo from '../images/receipt.png'
 import nowGo from '../images/short_cut.png'
@@ -13,6 +13,24 @@ const GoHome = () => {
     const localPw = window.localStorage.getItem("userPw");
     const isLogin = window.localStorage.getItem("isLogin");
     if(isLogin === "FALSE") window.location.replace("/");
+
+    const [memberInfo, setMemberInfo] = useState(""); // 현재 로그인 되어 있는 회원의 정보 저장용
+
+    useEffect(() => {
+        
+        const memberData = async () => {
+            try {
+                const response = await KhApi.memberInfo(localId); // 원래는 전체 회원 조회용
+                setMemberInfo(response.data);
+                console.log(response.data)
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        memberData();
+    }, []);
+
+
 
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -32,6 +50,8 @@ const GoHome = () => {
     };
     
     const onClickWallet = async() => {
+        console.log("Test CK");
+        window.location.replace("/TestCk");
     }
 
     const onClickEFT = () => {
@@ -61,6 +81,12 @@ const GoHome = () => {
         window.location.replace("/MemberInfo");
     }
 
+    const onClickImgSend = () => {
+        //  console.log("회원 정보 설정");
+        //  window.location.replace("/MemberDetail");
+
+    }
+
     return(
         <div>
             <div className="container">
@@ -75,11 +101,11 @@ const GoHome = () => {
                 <div className="linkwallet" onClick={onClickWallet}>
                     <img src={imgPhone} className="nedlogo" alt="bigN" />
                         <span className="linkwallet1">There is no wallet connected.</span>
-                        <span className="linkwallet2">+ Add Wallet</span>
+                        <span className="linkwallet2">Test CK</span>
                 </div>
                 <div className="EFT" onClick={onClickMember}>
                     <img src={nowGo} className="imgEFT" alt="GoEFT" />
-                    <span className="EFTtypo">회원정보 조회</span>
+                    <span className="EFTtypo">전체 회원 리스트</span>
                 </div>
                 <div className="ATM" onClick={onClickMemberReg}>
                     <img src={receiptGo} className="imgATM" alt="onClickMemberReg" />
@@ -93,9 +119,20 @@ const GoHome = () => {
                     <img src={qrPay} className="imgQrblack" alt="GoQrpay" />
                     <span className="QRtypo">로그아웃</span>
                 </div>
+                <div className="QR" onClick={onClickImgSend}>
+                    <img src={qrPay} className="imgQrblack" alt="GoQrpay" />
+                    <span className="QRtypo">회원 정보 설정</span>
+                </div>
                 <div className="history" >
-                   <p>회원 아이디 : {localId}</p>
-                   <p>회원 패스워드 : {localPw}</p>
+                    {memberInfo && memberInfo.map(member => (
+                        <div key={member.id}>
+                            <p>{member.id}</p>
+                            <p>{member.name}</p>
+                            <p>{member.email}</p>
+                            <p>{member.join}</p>
+                        </div>
+                        
+                    ))}
                 </div>
             </div>
             {modalOpen && <Modal open={modalOpen} confirm={confirmModal} close={closeModal} type={true} header="확인">정말 탈퇴하시겠습니까?</Modal>}

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,46 +21,43 @@ import com.kh.vo.MemberVO;
 @WebServlet("/MemberServlet")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MemberServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	protected void doOptions(HttpServletRequest request, HttpServletResponse response)
-		    throws ServletException, IOException {
-		response = Common.corsResSet(response);
+	// CORS 처리
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		Common.corsResSet(response);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		response = Common.corsResSet(response);
-
+		Common.corsResSet(response);
 		StringBuffer sb = Common.reqStringBuff(request);
 		JSONObject jsonObj = Common.getJsonObj(sb);
 		
-		System.out.println("Command : " + (String)jsonObj.get("cmd"));
 		String reqCmd = (String)jsonObj.get("cmd");
+		String reqId = (String)jsonObj.get("id");
+		System.out.println("전달 받은 ID : " + reqId);
+		
 		
 		PrintWriter out = response.getWriter();
-		
 		if(!reqCmd.equals("MemberInfo")) {
 			JSONObject resJson = new JSONObject();
 			resJson.put("result", "NOK");
 			out.print(resJson);
 			return;
-		}
+		} 
 		
 		MemberDAO dao = new MemberDAO();
-		List<MemberVO> list = dao.memberSelect();
+		List<MemberVO> list = dao.memberSelect(reqId);
 		
 		JSONArray memberArray = new JSONArray();
-		
-		for(MemberVO e : list) {
+		for (MemberVO e : list) {
 			JSONObject memberInfo = new JSONObject();
 			memberInfo.put("id", e.getId());
 			memberInfo.put("pwd", e.getPwd());
@@ -69,12 +67,8 @@ public class MemberServlet extends HttpServlet {
 			String dateToStr = dateFormat.format(e.getJoin());
 			memberInfo.put("join", dateToStr);
 			memberArray.add(memberInfo);
-		}	
+		}
+		System.out.println(memberArray);
 		out.print(memberArray);
-	}
-	
-	@Override
-	public void destroy() {
-		System.out.println("destroy 메소드 호출");
 	}
 }

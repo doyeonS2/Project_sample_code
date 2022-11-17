@@ -14,12 +14,10 @@ import org.json.simple.JSONObject;
 import com.kh.common.Common;
 import com.kh.dao.MemberDAO;
 
-
 @WebServlet("/MemberRegServlet")
 public class MemberRegServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -28,7 +26,7 @@ public class MemberRegServlet extends HttpServlet {
 		Common.corsResSet(response);
 	}
 
-
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		Common.corsResSet(response);
@@ -40,17 +38,12 @@ public class MemberRegServlet extends HttpServlet {
 		String getMail = (String)jsonObj.get("mail");
 		
 		MemberDAO dao = new MemberDAO();
-		boolean rstComplete = dao.memberRegister(getId, getPwd, getName, getMail); // memberRegister : DAO라는 객체에 있는 메소드(MemberDAO 파일에 메소드 만들어야 함)
-	
-		PrintWriter out = response.getWriter(); 
+		boolean rstComplete = dao.memberRegister(getId, getPwd, getName, getMail);
+		
+		PrintWriter out = response.getWriter();
 		JSONObject resJson = new JSONObject();
 		if(rstComplete) resJson.put("result", "OK");
 		else resJson.put("result", "NOK");
 		out.print(resJson);
-		
 	}
-	
 }
-
-	
-

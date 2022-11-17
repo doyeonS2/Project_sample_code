@@ -5,53 +5,60 @@ import { Link } from "react-router-dom";
 import imgHome from '../images/home_button.png'
 import '../App.css'
 
+const MemberListBlock = styled.div`
+    box-sizing: border-box;
+    padding-bottom: 3em;
+    width: 768px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    @media screen and (max-width: 768px) {
+        witdh: 100%;
+        padding-left: 1em;
+        padding-right:1em;
+    }
+`;
+const MemberList = styled.table`
+    border-collapse: collapse;
+    width: 768px;
+    margin: 0 auto;
+    font-size: 1.125em;
+    @media screen and (max-width: 768px) {
+        witdh: 100%;
+    }
+    th, td {
+        border:1px solid #ccc;
+        padding: 2px;
+    }
+    th {
+        background-color: bisque;
+    }
+`;
+
+    const MemberTitle = styled.table`
+    font-size: 2em;
+    text-align: center;
+`;
+
 const MemberInfo = () => {
     const [memberInfo, setMemberInfo] = useState('');
     const [loading, setLoading] = useState(false);
     const isLogin = window.localStorage.getItem("isLogin");
     if(isLogin === "FALSE") window.location.replace("/");
 
-    const MemberListBlock = styled.div`
-        box-sizing: border-box;
-        padding-bottom: 3em;
-        width: 768px;
-        margin: 0 auto;
-        margin-top: 2rem;
-        @media screen and (max-width: 768px) {
-            witdh: 100%;
-            padding-left: 1em;
-            padding-right:1em;
-        }
-    `;
+    
+    const onClickMemberList = (val) => {
+        console.log("회원 상세 정보로 이동 : " + val);
+        window.localStorage.setItem("Detail", val);
+        window.location.replace("/MemberDetail");
 
-    const MemberList = styled.table`
-        border-collapse: collapse;
-        width: 768px;
-        margin: 0 auto;
-        font-size: 1.125em;
-        @media screen and (max-width: 768px) {
-            witdh: 100%;
-        }
-        th, td {
-            border:1px solid #ccc;
-            padding: 2px;
-        }
-        th {
-            background-color: bisque;
-        }
-    `;
-
-    const MemberTitle = styled.table`
-        font-size: 2em;
-        text-align: center;
-    `;
-
+    } 
+    
     useEffect(() => {
         
         const memberData = async () => {
             setLoading(true);
             try {
-                const response = await KhApi.memberInfo();
+                const response = await KhApi.memberInfo("ALL"); // 전체 회원 조회
                 setMemberInfo(response.data);
                 console.log(response.data)
             } catch (e) {
@@ -74,7 +81,7 @@ const MemberInfo = () => {
                     <th>아이디</th><th>이름</th><th>이메일</th><th>가입일</th>
                 </tr>
                 {memberInfo && memberInfo.map(member => (
-                    <tr key={member.id}>
+                    <tr key={member.id} onClick={()=>onClickMemberList(member.id)}>
                         <td>{member.id}</td><td>{member.name}</td><td>{member.email}</td><td>{member.join}</td>
                     </tr>
                 ))}

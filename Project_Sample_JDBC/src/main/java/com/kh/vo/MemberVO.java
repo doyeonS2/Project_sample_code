@@ -6,8 +6,9 @@ public class MemberVO {
 	private String id;
 	private String pwd;
 	private String name;
-	private String email; 
+	private String email;
 	private Date join;
+	
 	public String getId() {
 		return id;
 	}
@@ -38,6 +39,5 @@ public class MemberVO {
 	public void setJoin(Date join) {
 		this.join = join;
 	}
-	
 
 }

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const BottomMenu = () => {
     const isLoginStr = window.localStorage.getItem("isLogin");
-    
 
     const BottomMenuContainer = styled.div`
         display: flex;

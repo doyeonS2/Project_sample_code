@@ -8,12 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.simple.JSONObject;
-
 import com.kh.common.Common;
 import com.kh.dao.MemberDAO;
-
 
 @WebServlet("/MemberCheck")
 public class MemberCheck extends HttpServlet {
@@ -33,7 +30,7 @@ public class MemberCheck extends HttpServlet {
 		JSONObject jsonObj = Common.getJsonObj(sb);
 		String getId = (String)jsonObj.get("id");
 		MemberDAO dao = new MemberDAO();
-		boolean isNotReg = dao.regIdCheck(getId); // isNotReg = true이면 가입 안된 상태
+		boolean isNotReg = dao.regIdCheck(getId); //isNotReg = TRUE 가입안된 경우
 	
 		PrintWriter out = response.getWriter();
 		JSONObject resJson = new JSONObject();

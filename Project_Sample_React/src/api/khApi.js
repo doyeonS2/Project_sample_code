@@ -1,6 +1,9 @@
 import axios from "axios";
+import alarmGo from '../images/bell.png' // 테스트용
 const HEADER = 'application/json';
+const HEADER_IMG = 'multipart/form-data'; 
 const KH_DOMAIN = "http://localhost:8100/kh_mini_ex/";
+
 
 const KhApi = {
     // 로그인 기능
@@ -12,9 +15,10 @@ const KhApi = {
         return await axios.post(KH_DOMAIN + "LoginServlet", loginObj, HEADER);
     },
     // 회원 정보 조회
-    memberInfo: async function() {
+    memberInfo: async function(id) {
         const regCmd = {
-            cmd : "MemberInfo"
+            cmd : "MemberInfo",
+            id : id 
         }
         return await axios.post(KH_DOMAIN + "MemberServlet", regCmd, HEADER);
     },
@@ -40,6 +44,12 @@ const KhApi = {
             id: id,
         }
         return await axios.post(KH_DOMAIN + "MemberDeleteServlet", regCheck, HEADER);
+    },
+
+    memberImgTrans: async function(url) {
+        let frm = new FormData();
+        frm.append("photo", alarmGo);
+        return await axios.post(KH_DOMAIN + "ImageServlet", frm, HEADER_IMG)
     }
 }
 
