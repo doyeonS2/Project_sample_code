@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     // 인증은 AuthenticationManager를 통해 이루어짐
     // 비밀번호 암호화를 위해 passwordEncoder를 지정
