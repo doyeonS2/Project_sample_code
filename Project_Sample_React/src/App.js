@@ -9,6 +9,7 @@ import TestCk from './pages/TestCk';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import BottomMenu from './pages/BottomMenu';
+import SocketTest from './pages/SocketTest';
 
 function App() {
   const [isName, setIsName] = useState("0000");
@@ -23,6 +24,7 @@ function App() {
           <Route path="/MemberReg" element={<MemberReg />} />
           <Route path="/MemberDetail" element={<MemberDetail />} />
           <Route path="/TestCk" element={<TestCk />} />
+          <Route path="/TestCk" element={<SocketTest />} />
       </Routes>
       <BottomMenu/>
     </Router>

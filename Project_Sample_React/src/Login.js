@@ -36,6 +36,17 @@ const Login = () => {
     useEffect(() => {
     });
 
+    const chatTest = async() => {
+        try {
+            const res = await KhApi.chatRoomOpen("테스트 채팅방");
+            console.log(res.data);
+            window.localStorage.setItem("chatRoomId", res.data);
+            window.location.replace("/Socket");
+        } catch {
+            console.log("error");
+        }
+    }
+
     const autoSign = () => {
         setIsAuto(isAuto => !isAuto);
         console.log(isAuto)
@@ -107,8 +118,11 @@ const Login = () => {
                     <Link to="/FindId" className="find_id">
                         <span>Forgot Your ID/Password?</span>
                     </Link>
-                    
                 </div>
+                <div className="item4">
+                    <button onClick={chatTest}>임시 채팅 테스트</button>
+                </div>
+            
                 <div className="item2">
                     {(isId && isPw) ? 
                     <button className="enable_button"

@@ -2,8 +2,8 @@ import axios from "axios";
 import alarmGo from '../images/bell.png' // 테스트용
 const HEADER = 'application/json';
 const HEADER_IMG = 'multipart/form-data'; 
-const KH_DOMAIN = "http://localhost:8100/kh_mini_ex/";
-
+// const KH_DOMAIN = "http://localhost:8100/kh_mini_ex/";
+const KH_DOMAIN = "http://localhost:8211/";
 
 const KhApi = {
     // 로그인 기능
@@ -50,6 +50,14 @@ const KhApi = {
         let frm = new FormData();
         frm.append("photo", alarmGo);
         return await axios.post(KH_DOMAIN + "ImageServlet", frm, HEADER_IMG)
+    },
+
+    // 채팅방 개설 API
+    chatRoomOpen: async function(name) {
+        const chatObject = {
+            "name" : name
+        }
+        return await axios.post(KH_DOMAIN + "chat", chatObject, HEADER);
     }
 }
 
